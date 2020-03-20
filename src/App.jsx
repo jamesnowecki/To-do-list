@@ -2,27 +2,86 @@ import React from 'react';
 import logo from './logo.svg';
 import styles from './App.module.scss';
 import { useState, useEffect } from 'react';
-import firebase, { provider } from "./firebase";
+import firebase, { firestore, provider } from "./firebase";
 import Taskform from "./containers/TaskForm";
-import InputField from "./components/InputField";
 
 const App = () => {
   
-  const [taskInfo, updateTaskInfo] = useState("")
-  const [taskStartDate, updateTaskStartDate] = useState("")
-  const [taskCompletionDate, updateTaskCompletionDate] = useState("")
-  const [taskPicUrl, updateTaskPicUrl] = useState("")
+  const [databaseDetails, updateDatabaseDetails] = useState([]);
+  const [taskInfo, updateTaskInfo] = useState("");
+  const [taskStartDate, updateTaskStartDate] = useState("");
+  const [taskCompletionDate, updateTaskCompletionDate] = useState("");
+  const [taskPicUrl, updateTaskPicUrl] = useState("");
 
   
+  useEffect(() => {fetchDBDetails()}, []);
+
   let taskObject = {
     taskInfo: taskInfo,
     taskStartDate: taskStartDate,
-    taskCompleteDate: taskCompletionDate,
+    taskCompletionDate: taskCompletionDate,
     taskPicUrl: taskPicUrl,
   }
 
+  const fetchDBDetails = () => {
+    firestore
+      .collection("users")
+      .doc("UQm8ea6gDdoIStNcISy3")
+      .get()
+      .then(doc => {
+        const retrievedItems = doc.data().toDoList;
+        updateDatabaseDetails(retrievedItems);
+      })
+  }
+ 
+  const addToDb = () => {
+    const newItems = [taskObject, ...databaseDetails]
+
+    firestore
+    .collection("users")
+    .doc("UQm8ea6gDdoIStNcISy3")
+    .set({
+      toDoList: newItems})
+    .then(() => {fetchDBDetails();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  };
+
+  const deleteFromDb = item => {
+    const newArray = [...databaseDetails];
+    const position = newArray.indexOf(item);
+    newArray.splice(position, 1);
+
+    const newDoc = {
+      toDoList: newArray
+    };
+
+    firestore
+    .collection("users")
+    .doc("UQm8ea6gDdoIStNcISy3")
+    .set(newDoc)
+    .then(() => {
+      fetchDBDetails();
+    })
+    .catch(err => {
+      console.log(err)
+    });
+  };
+
+  const getItemJsx = () => {
+    return databaseDetails.map(item => (
+      <>
+      <p>{item}</p>
+      <button onClick={() => deleteFromDb(item)}>Delete Task</button>
+      </>
+    ));
+  }
+
+
   const submitFunc = () => {
-   console.log(taskObject)
+   addToDb();
   }
 
   return (
@@ -33,6 +92,7 @@ const App = () => {
     <p>{taskObject.taskStartDate}</p>
     <p>{taskObject.taskCompleteDate}</p>
     <p>{taskObject.taskPicUrl}</p>
+    {console.log(databaseDetails)}
     </>
     
   );
