@@ -4,6 +4,7 @@ import styles from './App.module.scss';
 import { useState, useEffect } from 'react';
 import firebase, { firestore, provider } from "./firebase";
 import Taskform from "./containers/TaskForm";
+import TaskCard from "./components/TaskCard";
 
 const App = () => {
   
@@ -73,7 +74,8 @@ const App = () => {
   const getItemJsx = () => {
     return databaseDetails.map(item => (
       <>
-      <p>{item}</p>
+      {console.log(item)}
+      <TaskCard props={item}/>
       <button onClick={() => deleteFromDb(item)}>Delete Task</button>
       </>
     ));
@@ -88,11 +90,7 @@ const App = () => {
     <>
     <h1>TaskMASTER</h1>
     <Taskform descriptionFunc={updateTaskInfo} startDateFunc={updateTaskStartDate} completionDateFunc={updateTaskCompletionDate} imageUrlFunc={updateTaskPicUrl} buttonFunc={submitFunc}/>
-    <p>{taskObject.taskInfo}</p>  
-    <p>{taskObject.taskStartDate}</p>
-    <p>{taskObject.taskCompleteDate}</p>
-    <p>{taskObject.taskPicUrl}</p>
-    {console.log(databaseDetails)}
+    {getItemJsx()}
     </>
     
   );
