@@ -16,7 +16,7 @@ Run yarn install in command line (or use your package manager) to install depend
 
 ## Deployment
 
-Deployed via github pages.
+Deployed with Firebase.
 
 ## Built With
 
