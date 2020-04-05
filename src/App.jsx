@@ -74,7 +74,6 @@ const App = () => {
   const getItemJsx = () => {
     return databaseDetails.map(item => (
       <>
-      {console.log(item)}
       <TaskCard props={item}/>
       <button onClick={() => deleteFromDb(item)}>Delete Task</button>
       </>

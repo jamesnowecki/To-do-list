@@ -6,12 +6,12 @@ const TaskCard = ({props}) => {
   const { taskCompletionDate, taskInfo, taskPicUrl, taskStartDate } = props;
 
   return (
-    <>
+    <div className={styles.taskCard}>
       <p>Task: {taskInfo}</p>
       <p>Start Date: {taskStartDate}</p>
       <p>Completion Date: {taskCompletionDate}</p>
       <img src={taskPicUrl} alt="Task Pic"/>
-    </>
+    </div>
   );
 };
 
