@@ -1,6 +1,6 @@
 # To-do list app
 
-One of the mentors who pushed me to learn to code suggested simulating one of our favourite 2-player abstract board games as a useful exercise in learning OOP and functional programming. It provided a brilliant platform for validating the OOP and functional programming concepts we were learning on the course as I went along and my skills improved.
+Small scale app in React to demonstrate integration of firestore database, reading from and writing to the database, and displaying contents dynamically on the page. This has been extended to demonstrate authentication.
 
 ## Getting Started
 
