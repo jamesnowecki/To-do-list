@@ -37,4 +37,5 @@ This project is licensed under the MIT License.
 
 ## Acknowledgments
 
-* With great thanks to Gordon Hamilton, designer of Santorini.
+* I do love post-it notes
+
