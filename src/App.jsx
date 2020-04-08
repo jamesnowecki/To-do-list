@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import styles from './App.module.scss';
 import { useState, useEffect } from 'react';
 import firebase, { firestore, provider } from "./firebase";
@@ -13,6 +12,39 @@ const App = () => {
   const [taskStartDate, updateTaskStartDate] = useState("");
   const [taskCompletionDate, updateTaskCompletionDate] = useState("");
   const [taskPicUrl, updateTaskPicUrl] = useState("");
+
+  const [user, setUser] = useState(null);
+
+  const signInWithRedirect = () => {
+    firebase.auth().signInWithRedirect(provider);
+  };
+
+  const getUser = () => {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
+  };
+
+  const signOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        setUser(null);
+        alert("You have signed out");
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getUser();
+  }, [user]);
 
   
   useEffect(() => {fetchDBDetails()}, []);
@@ -80,14 +112,18 @@ const App = () => {
     ));
   }
 
-
   const submitFunc = () => {
    addToDb();
   }
 
+  
+
   return (
     <>
     <h1>TaskMASTER</h1>
+    <button onClick={() => signInWithRedirect()}>Sign in</button>
+    <button onClick={() => signOut()}>Sign out</button>
+
     <Taskform descriptionFunc={updateTaskInfo} startDateFunc={updateTaskStartDate} completionDateFunc={updateTaskCompletionDate} imageUrlFunc={updateTaskPicUrl} buttonFunc={submitFunc}/>
     {getItemJsx()}
     </>
