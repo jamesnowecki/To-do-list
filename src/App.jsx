@@ -105,10 +105,10 @@ const App = () => {
 
   const getItemJsx = () => {
     return databaseDetails.map(item => (
-      <>
+      <div key={(item.taskInfo + item.taskStartDate)}>
       <TaskCard props={item}/>
       <button onClick={() => deleteFromDb(item)}>Delete Task</button>
-      </>
+      </div>
     ));
   }
 
@@ -116,13 +116,15 @@ const App = () => {
    addToDb();
   }
 
-  
+  const displayUserNameJSX = user ? (console.log(user), `Hi ${user.displayName}`) : null;
 
+  //user.providerData[0].uid
   return (
     <>
     <h1>TaskMASTER</h1>
     <button onClick={() => signInWithRedirect()}>Sign in</button>
     <button onClick={() => signOut()}>Sign out</button>
+  <p>{displayUserNameJSX}</p>
 
     <Taskform descriptionFunc={updateTaskInfo} startDateFunc={updateTaskStartDate} completionDateFunc={updateTaskCompletionDate} imageUrlFunc={updateTaskPicUrl} buttonFunc={submitFunc}/>
     {getItemJsx()}
