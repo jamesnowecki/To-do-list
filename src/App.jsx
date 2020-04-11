@@ -23,6 +23,7 @@ const App = () => {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         setUser(user);
+        fetchDBDetails();
       } else {
         setUser(null);
       }
@@ -47,7 +48,7 @@ const App = () => {
   }, [user]);
 
   
-  useEffect(() => {fetchDBDetails()}, []);
+  // useEffect(() => {fetchDBDetails()}, []);
 
   let taskObject = {
     taskInfo: taskInfo,
@@ -59,11 +60,14 @@ const App = () => {
   const fetchDBDetails = () => {
     firestore
       .collection("users")
-      .doc("UQm8ea6gDdoIStNcISy3")
+      .doc(user.uid)
       .get()
       .then(doc => {
+        if (doc.exists) {
+
         const retrievedItems = doc.data().toDoList;
         updateDatabaseDetails(retrievedItems);
+        }
       })
   }
  
@@ -72,7 +76,7 @@ const App = () => {
 
     firestore
     .collection("users")
-    .doc("UQm8ea6gDdoIStNcISy3")
+    .doc(user.uid)
     .set({
       toDoList: newItems})
     .then(() => {fetchDBDetails();
@@ -93,7 +97,7 @@ const App = () => {
 
     firestore
     .collection("users")
-    .doc("UQm8ea6gDdoIStNcISy3")
+    .doc(user.uid)
     .set(newDoc)
     .then(() => {
       fetchDBDetails();
@@ -103,6 +107,7 @@ const App = () => {
     });
   };
 
+
   const getItemJsx = () => {
     return databaseDetails.map(item => (
       <div key={(item.taskInfo + item.taskStartDate)}>
@@ -111,6 +116,9 @@ const App = () => {
       </div>
     ));
   }
+
+  const checkUserLogin = user ? getItemJsx() : <p>Login to see your to do list</p> 
+
 
   const submitFunc = () => {
    addToDb();
@@ -124,10 +132,10 @@ const App = () => {
     <h1>TaskMASTER</h1>
     <button onClick={() => signInWithRedirect()}>Sign in</button>
     <button onClick={() => signOut()}>Sign out</button>
-  <p>{displayUserNameJSX}</p>
+    <p>{displayUserNameJSX}</p>
 
     <Taskform descriptionFunc={updateTaskInfo} startDateFunc={updateTaskStartDate} completionDateFunc={updateTaskCompletionDate} imageUrlFunc={updateTaskPicUrl} buttonFunc={submitFunc}/>
-    {getItemJsx()}
+    {checkUserLogin}
     </>
     
   );
