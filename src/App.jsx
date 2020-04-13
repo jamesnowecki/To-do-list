@@ -5,7 +5,6 @@ import firebase, { firestore, provider } from "./firebase";
 import Taskform from "./containers/TaskForm";
 import TaskCard from "./components/TaskCard";
 import NavBar from "./containers/NavBar";
-import Button from "./components/Button";
 
 const App = () => {
   const [databaseDetails, updateDatabaseDetails] = useState([]);
@@ -46,8 +45,6 @@ const App = () => {
   useEffect(() => {
     getUser();
   }, [user]);
-
-  // useEffect(() => {fetchDBDetails()}, []);
 
   let taskObject = {
     taskInfo: taskInfo,
@@ -124,7 +121,9 @@ const App = () => {
   const checkUserLogin = user ? (
     getItemJsx()
   ) : (
-    <p className={styles.notLoggedIn}>Sign in to see your to do list, or start creating one!</p>
+    <p className={styles.notLoggedIn}>
+      Sign in to see your to do list, or start creating one!
+    </p>
   );
 
   const displayUserNameJSX = user ? (
