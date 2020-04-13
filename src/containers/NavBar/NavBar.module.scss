@@ -2,15 +2,28 @@
     background-color: black;
     color: tomato;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
 
-    h1 {
-        margin-left: 20px
-    }
-
     .login {
-        margin-right: 20px;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (min-width: 321px) {
+    .navBar {
+        flex-direction: row;
+        justify-content: space-between;
+
+
+        h1 {
+            margin-left: 20px
+        }
+    
+        .login {
+            margin-right: 20px;
+            margin-bottom: 0;
+        }
     }
 }

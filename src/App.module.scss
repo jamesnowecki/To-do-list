@@ -1,3 +1,48 @@
-.App {
-  font-family: 'Titillium Web', sans-serif;
+.app {
+  font-family: "Titillium Web", sans-serif;
+  background-color: rgb(114, 114, 114);
+  padding: 10px;
+  min-height: 88vh;
+
+  .notLoggedIn {
+    background-color: rgb(114, 114, 114);
+    color: white;
+  }
+
+  .loggedIn {
+    background-color: rgb(114, 114, 114);
+    color: white;
+  }
+
+  .delete {
+    width: 80px;
+    height: 30px;
+    background-color: tomato;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-family: "Titillium Web", sans-serif;
+    margin: 0 auto;
+    display: block;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .toDos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 426px) {
+  .app {
+    .toDos {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  }
 }

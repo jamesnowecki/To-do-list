@@ -5,6 +5,7 @@ import firebase, { firestore, provider } from "./firebase";
 import Taskform from "./containers/TaskForm";
 import TaskCard from "./components/TaskCard";
 import NavBar from "./containers/NavBar";
+import Button from "./components/Button";
 
 const App = () => {
   const [databaseDetails, updateDatabaseDetails] = useState([]);
@@ -112,8 +113,10 @@ const App = () => {
   const getItemJsx = () => {
     return databaseDetails.map((item) => (
       <div key={item.taskInfo + item.taskStartDate}>
-        <TaskCard props={item} />
-        <button onClick={() => deleteFromDb(item)}>Delete Task</button>
+        <TaskCard item={item} />
+        <button className={styles.delete} onClick={() => deleteFromDb(item)}>
+          Delete
+        </button>
       </div>
     ));
   };
@@ -121,11 +124,11 @@ const App = () => {
   const checkUserLogin = user ? (
     getItemJsx()
   ) : (
-    <p>Login to see your to do list</p>
+    <p className={styles.notLoggedIn}>Sign in to see your to do list</p>
   );
 
   const displayUserNameJSX = user ? (
-    <>
+    <section className={styles.loggedIn}>
       {`Hi ${user.displayName}, here are a list of your tasks:`}
       <Taskform
         descriptionFunc={updateTaskInfo}
@@ -133,19 +136,21 @@ const App = () => {
         completionDateFunc={updateTaskCompletionDate}
         buttonFunc={submitFunc}
       />
-    </>
+    </section>
   ) : null;
 
   return (
-    <section className={styles.app}>
+    <>
       <NavBar
         user={user}
         signInWithRedirect={signInWithRedirect}
         signOut={signOut}
       />
-      <p>{displayUserNameJSX}</p>
-      {checkUserLogin}
-    </section>
+      <section className={styles.app}>
+        <p>{displayUserNameJSX}</p>
+        <section className={styles.toDos}>{checkUserLogin}</section>
+      </section>
+    </>
   );
 };
 
