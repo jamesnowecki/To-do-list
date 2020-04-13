@@ -124,7 +124,7 @@ const App = () => {
   const checkUserLogin = user ? (
     getItemJsx()
   ) : (
-    <p className={styles.notLoggedIn}>Sign in to see your to do list</p>
+    <p className={styles.notLoggedIn}>Sign in to see your to do list, or start creating one!</p>
   );
 
   const displayUserNameJSX = user ? (
