@@ -6,9 +6,9 @@ const Button = (props) => {
   const {btnText, handleClick} = props;
 
   return (
-    <>
-      <button onClick={handleClick}>{btnText}</button>
-    </>
+    <div className={styles.button}>
+      <button onClick={() => {handleClick()}}>{btnText}</button>
+    </div>
   );
 };
 

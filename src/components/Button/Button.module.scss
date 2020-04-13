@@ -1,0 +1,14 @@
+.button {
+    button {
+    width: 80px;
+    height: 30px;
+    background-color: tomato;
+    border: none;
+    color: white;
+    font-weight: 700;
+    
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
