@@ -4,8 +4,7 @@ import "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDWfckje5zES6WurjQ5xYMUgkjB0KBe2pY",
-    // authDomain: "to-do-list-314dd.firebaseapp.com",
-    authDomain: "to-do-list.jamesnowecki.com/",
+    authDomain: "to-do-list-314dd.firebaseapp.com",
     databaseURL: "https://to-do-list-314dd.firebaseio.com",
     projectId: "to-do-list-314dd",
     storageBucket: "to-do-list-314dd.appspot.com",
