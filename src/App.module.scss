@@ -1,11 +1,13 @@
+body {
+  background-color: rgb(114, 114, 114);
+}
+
 .app {
   font-family: "Titillium Web", sans-serif;
   background-color: rgb(114, 114, 114);
   padding: 10px;
-  min-height: 88vh;
 
   .notLoggedIn {
-    background-color: rgb(114, 114, 114);
     color: white;
   }
 
